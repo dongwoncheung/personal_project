@@ -16,7 +16,9 @@ public class UserRestController {
 			@RequestParam("address") String address,
 			@RequestParam("emailAddress") String emailAddress
 			){
-		
+			
+		//db insert 
+		userBO.
 		return;
 	}
 }
