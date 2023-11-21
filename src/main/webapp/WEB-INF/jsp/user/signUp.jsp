@@ -21,13 +21,13 @@
 			<span class="sign-up-nickname">닉네임</span>
 			<div class="d-flex ml-3 mt-3">
 				<input type="text" name="nickname" class="form-control col-7" placeholder="닉네임을 입력하세요">
-				<button type="button" id="loginIdCheckBtn" class="btn btn-success ml-2">중복확인</button>
+				<button type="button" id="nicknameCheckBtn" class="btn btn-success ml-2">중복확인</button>
 			</div>
 			
 			<div class="d-flex ml-3 mb-3">
 				<div id="nicknameCheckLength" class="small text-danger d-none">닉네임을 4자 이상 입력해주세요.</div>
 				<div id="nicknameCheckDuplicated" class="small text-danger d-none">이미 사용중인 닉네임입니다.</div>
-				<div id="nicknameCheckOk" class="small text-success d-none">사용 가능한 닉네임 입니다.</div>
+				<div id="nicknameCheckOk" class="small text-primary d-none">사용 가능한 닉네임 입니다.</div>
 			</div>
 			
 			<span class="sign-up-subject">비밀번호</span>
@@ -68,3 +68,81 @@
 		</form>
 	</div>
 </div>
+<script>
+$(document).ready(function(){
+
+		//회원가입 api
+		$('#signUpBtn').on('submit', function(e){
+			e.preventDefault();
+			let loginId = $('#loginId').val().trim();
+			let nicknameId = $('#nickname').val().trim();
+			let password = $('#password').val().trim();
+			let name = $('#name').val().trim();
+			let phoneNumber = $('#phoneNumber').val().trim();
+			let email = $('#email').val().trim();
+			let address = $('#address').val().trim();
+			
+			if(!loginId){
+				alert("아이디를 입력하세요");
+				return false;
+			}
+			if(!nickname){
+				alert("닉네임을 입력하세요");
+				return false;
+			}
+			if (!password || !confirmPassword) {
+				alert("비밀번호를 입력하세요");
+				return false;
+			}
+			if (password != confirmPassword) {
+				alert("비밀번호가 일치하지 않습니다");
+				return false;
+			}
+			if(!name){
+				alert("이름를 입력하세요");
+				return false;
+			}
+			if(!phoneNumber){
+				alert("전화번호를 입력하세요");
+				return false;
+			}
+			if(!email){
+				alert("이메일을 입력하세요");
+				return false;
+			}
+			if(!address){
+				alert("주소를 입력하세요");
+				return false;
+			}
+			// 아이디 중복확인 
+			if($('#idCheckOk').hasClass('d-none')){
+				alert("아이디 중복확인을 다시한번 해주세요");
+				return false;
+			}
+			//닉네임 중복확인
+			if($('#nicknameCheckBtn').hasClass('d-none')){
+					alert("닉네임을 다시입력해주세요")
+					return false;
+				}
+			}
+			let url = $(this).attr('action');
+			console.log(url);
+			let params = $(this).serialize(); // 폼태그에 있는 name 속성-값들로 파라미터 구성
+			console.log(params);
+			
+			// request
+			$.post(url, params)
+			.done(function(data) {
+				// response
+				if (data.code == 200) {
+					alert("가입을 환영합니다!!! 로그인을 해주세요.");
+					location.href = "/user/sign-in"; // 로그인 화면으로 이동
+				} else {
+					// 로직 실패
+					alert(data.errorMessage);
+				}
+		
+		
+			});
+		});
+		</script>

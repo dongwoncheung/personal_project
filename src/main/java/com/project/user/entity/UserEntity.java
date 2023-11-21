@@ -13,6 +13,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -24,17 +25,27 @@ import lombok.ToString;
 @Builder
 @Table(name = "user")
 @Entity
+@Data
 public class UserEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
+	@Column(name = "loginId")
+	private String loginId;
+	
 	@Column(name = "nicknameId")
 	private String nicknameId;
+	
 	private String password;
+	
 	private String name;
+	
 	@Column(name = "phoneNumber")
 	private String phoneNumber;
+	
 	private String address;
+	
 	@Column(name = "emailAddress")
 	private String emailAddress;
 	
