@@ -11,21 +11,26 @@ import com.project.user.repository.UserRepository;
 public class UserBo {
 	@Autowired
 	private UserRepository userRepository;
+	
+	public UserEntity getUserEntityByNicknameId(String nicknameId) {
+		return userRepository.findByLoginId(nicknameId); 
+	}
 	//회원가입
 	//in-> parameter들
 	//out-> 결과값으로 받는것들
-	public Integer addUser(String loginId, String nickname, 
+	public Integer addUser(String loginId, String nicknameId, 
 			String password, String name, 
-			String phoneNumber, String email, 
+			String phoneNumber, String emailAddress, 
 			String address) {
+		
 		UserEntity userEntity = userRepository.save(
 				UserEntity.builder()
 				.loginId(loginId)
-				.nickname(nickname)
+				.nicknameId(nicknameId)
 				.password(password)
 				.name(name)
 				.phoneNumber(phoneNumber)
-				.email(email)
+				.emailAddress(emailAddress)
 				.address(address)
 				.build());
 		return userEntity == null ? null : userEntity.getId();
