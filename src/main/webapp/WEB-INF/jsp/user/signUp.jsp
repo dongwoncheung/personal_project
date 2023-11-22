@@ -98,7 +98,7 @@ $(document).ready(function(){
 					// 중복
 					$('#idCheckDuplicated').removeClass('d-none');
 				} else {
-					// 중복 아님 => 사용 가능
+					// 중복 x=> 사용 가능
 					$('#idCheckOk').removeClass('d-none');
 				}
 			}
@@ -122,7 +122,7 @@ $(document).ready(function(){
 			return;
 		}
 		
-		// AJAX 통신 - 중복확인
+		// AJAX 통신 - 닉네임중복확인
 		$.ajax({
 			// request
 			url:"/user/is-duplicated-nicknameId"

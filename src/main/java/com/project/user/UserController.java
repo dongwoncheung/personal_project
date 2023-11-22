@@ -14,4 +14,9 @@ public class UserController {
 		model.addAttribute("mainSection", "user/signUp");
 		return"template/layout";
 	}
+	@GetMapping("sign-in")
+	public String signIn(Model model) {
+		model.addAttribute("mainSection", "user/signIn");
+		return"template/layout";
+	}
 }

@@ -12,9 +12,6 @@ public class UserBo {
 	@Autowired
 	private UserRepository userRepository;
 	
-	public UserEntity getUserEntityByNicknameId(String nicknameId) {
-		return userRepository.findByLoginId(nicknameId); 
-	}
 	//회원가입
 	//in-> parameter들
 	//out-> 결과값으로 받는것들
@@ -35,7 +32,14 @@ public class UserBo {
 				.build());
 		return userEntity == null ? null : userEntity.getId();
 	}
+	//아이디 중복확인
+	//in : loginId
+	//out: userEntity(null도 가능함)
+	public UserEntity getUserEntityByLoginId(String loginId) {
+		return userRepository.findByLoginId(loginId); 
+	}
 
+	
 	
 	
 }
