@@ -41,17 +41,17 @@ public class UserBo {
     // 아이디 중복확인
     // in: loginId
     // out: true if duplicated, false otherwise
-    public UserEntity isDuplicatedLoginId(String loginId) {
-    	return userRepository.findByLoginId(loginId);
-    }
+//    public UserEntity isDuplicatedLoginId(String loginId, String nicknameId) {
+//    	return userRepository.findByLoginIdAndNicknameId(loginId, nicknameId);
+//    }
 
-	// 닉네임 중복확인
-	// in: nicknameId
-	// out: true if duplicated, false otherwise
-	public UserEntity isDuplicatedNicknameId(String nicknameId) {
-		return userRepository.findByNicknameId(nicknameId);
-		
-	}
+//	// 닉네임 중복확인
+//	// in: nicknameId
+//	// out: true if duplicated, false otherwise
+//	public UserEntity isDuplicatedNicknameId(String nicknameId) {
+//		return userRepository.findByNicknameId(nicknameId);
+//		
+//	}
     
 //	//닉네임 중복 확인
 //	//in : nicknameId
@@ -60,6 +60,11 @@ public class UserBo {
 //		return userRepository.findByNicknameId(nicknameId);
 //	}
 
-	
+    public UserEntity getUserEntityByLoginId(String loginId) {
+		return userRepository.findByLoginId(loginId); 
+	}
+	public UserEntity getUserEntityByNicknameId(String nicknameId) {
+		return userRepository.findByNicknameId(nicknameId);
+	}
 	
 }

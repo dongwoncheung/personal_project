@@ -70,58 +70,8 @@
 	</div>
 </div>
 <script>
-/* $(document).ready(function(){
-		//중복확인 버튼 클릭(아이디)
-		 $("#loginIdCheckBtn, #nicknameCheckBtn").on('click', function (){
-			//alert("성공");
-			
-			// 경고 문구 초기화
-$('#idCheckLength, #idCheckDuplicated, #idCheckOk, #nicknameCheckLength, #nicknameCheckDuplicated, #nicknameCheckOk').addClass('d-none');
-		
-		let loginId = $('#loginId').val().trim();
-		let nicknameId = $('#nicknameId').val();
-		
-		//validation check
-		if (loginId.length < 4) {
-			$('#idCheckLength').removeClass('d-none');
-			return;
-		}
-        if (nicknameId.length < 4) {
-            $("#nicknameCheckLength").removeClass('d-none');
-            return;
-        }
-		
-		// AJAX 통신 - 아이디중복확인 및 닉네임 중복 확인
-		$.ajax({
-			// request
-			url:"/user/is-duplicated-id"
-			, data: {"loginId":loginId}
-			
-			// response
-			, success: function(data) {
-				if (data.isDuplicatedId) {
-					// 중복
-					$('#idCheckDuplicated').removeClass('d-none');
-				} else {
-					// 중복 아님 => 사용 가능
-					$('#idCheckOk').removeClass('d-none');
-				}
-                if (data.isDuplicatedNickname) {
-                    // 닉네임 중복
-                    $('#nicknameCheckDuplicated').removeClass('d-none');
-                } else {
-                    // 닉네임 중복 아님 => 사용 가능
-                    $('#nicknameCheckOk').removeClass('d-none');
-                }
-				
-			}
-			, error: function(request, status, error) {
-				alert("중복확인에 실패했습니다.");
-			}
-		});
-	}); */
-	$(document).ready(function () {
-	    // 중복확인 버튼 클릭(아이디 및 닉네임)
+$(document).ready(function () {
+/* 	    // 중복확인 버튼 클릭(아이디 및 닉네임)
 	    $("#loginIdCheckBtn, #nicknameCheckBtn").on('click', function () {
 	        // 경고 문구 초기화
 	        $('#idCheckLength, #idCheckDuplicated, #idCheckOk, #nicknameCheckLength, #nicknameCheckDuplicated, #nicknameCheckOk').addClass('d-none');
@@ -150,22 +100,26 @@ $('#idCheckLength, #idCheckDuplicated, #idCheckOk, #nicknameCheckLength, #nickna
 	                if (data.isDuplicatedId) {
 	                    // 아이디 중복
 	                    $('#idCheckDuplicated').removeClass('d-none');
+	                    $('#idCheckOk').addClass('d-none');
 	                } else {
 	                    // 아이디 중복 아님 => 사용 가능
 	                    $('#idCheckOk').removeClass('d-none');
+	                    $('#idCheckDuplicated').addClass('d-none');
 	                }
 
 	                if (data.isDuplicatedNickname) {
 	                    // 닉네임 중복
 	                    $('#nicknameCheckDuplicated').removeClass('d-none');
+	                    $('#nicknameCheckOk').addClass('d-none');
 	                } else {
 	                    // 닉네임 중복 아님 => 사용 가능
 	                    $('#nicknameCheckOk').removeClass('d-none');
+	                    $('#nicknameCheckDuplicated').addClass('d-none');
 	                }
 
 	                if (!data.isDuplicatedId && !data.isDuplicatedNickname) {
 	                    // 아이디와 닉네임 중복이 없을 경우
-	                    $('#signUpForm').submit();
+	                    $('#signUpForm')[0].submit();
 	                }
 	            }
 	            ,error: function(request, status, error) {
@@ -173,9 +127,80 @@ $('#idCheckLength, #idCheckDuplicated, #idCheckOk, #nicknameCheckLength, #nickna
 	                alert("중복확인에 실패했습니다.");
 	            }
 	        });
-	    });
+	    }); */
+	 // 중복확인 버튼 클릭
+		$("#loginIdCheckBtn").on('click', function() {
+			//alert("클릭");
 			
+			// 경고 문구 초기화
+			$('#idCheckLength').addClass('d-none');
+			$('#idCheckDuplicated').addClass('d-none');
+			$('#idCheckOk').addClass('d-none');
+			
+			let loginId = $('#loginId').val().trim();
+			if (loginId.length < 4) {
+				$('#idCheckLength').removeClass('d-none');
+				return;
+			}
+			
+			// AJAX 통신 - 중복확인
+			$.ajax({
+				// request
+				url:"/user/is-duplicated-id"
+				, data: {"loginId":loginId}
+				
+				// response
+				, success: function(data) {
+					if (data.isDuplicatedId) {
+						// 중복
+						$('#idCheckDuplicated').removeClass('d-none');
+					} else {
+						// 중복 아님 => 사용 가능
+						$('#idCheckOk').removeClass('d-none');
+					}
+				}
+				, error: function(request, status, error) {
+					alert("중복확인에 실패했습니다.");
+				}
+			});
+		});	
 		
+		 // 중복확인 버튼 클릭
+		$("#nicknameCheckBtn").on('click', function() {
+			//alert("클릭");
+			
+			// 경고 문구 초기화
+			$('#nicknameCheckLength').addClass('d-none');
+			$('#nicknameCheckDuplicated').addClass('d-none');
+			$('#nicknameCheckOk').addClass('d-none');
+			
+			let nicknameId = $('#nicknameId').val();
+			if (loginId.length < 4) {
+				$('#nicknameCheckLength').removeClass('d-none');
+				return;
+			}
+			
+			// AJAX 통신 - 중복확인
+			$.ajax({
+				// request
+			    url:"/user/duplicated-nicknameId"
+				, data: {"nicknameId":nicknameId }
+				
+				// response
+				, success: function(data) {
+					if (data.isDuplicatedId) {
+						// 중복
+						$('#nicknameCheckDuplicated').removeClass('d-none');
+					} else {
+						// 중복 아님 => 사용 가능
+						$('#nicknameCheckOk').removeClass('d-none');
+					}
+				}
+				, error: function(request, status, error) {
+					alert("중복확인에 실패했습니다.");
+				}
+			});
+		});
 		
 		
 

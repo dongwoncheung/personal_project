@@ -17,31 +17,69 @@ import com.project.user.bo.UserBo;
 import com.project.user.entity.UserEntity;
 
 
-@RestController
 @RequestMapping("/user")
+@RestController
 public class UserRestController {
 	@Autowired
 	private UserBo userBO;
 
-	@RequestMapping("/check-duplicates")
+//	@RequestMapping("/check-duplicates")
+//	public Map<String, Object> isDuplicatedId(
+//			@RequestParam("loginId") String loginId,
+//			@RequestParam("nicknameId") String nicknameId) {
+//
+//		Map<String, Object> result = new HashMap<>();
+//	    // Check for duplicated ID
+//	    UserEntity userEntity = userBO.isDuplicatedLoginId(loginId, nicknameId);
+//	    result.put("code", 200);
+//	    result.put("isDuplicatedId", false);
+//	    
+//	    if(userEntity != null) {
+//	    	result.put("isDuplicatedId", true);
+//	    }
+//	    return result;
+//	}
+
+//	    // Check for duplicated nickname
+//	    UserEntity isDuplicatedNickname = userBO.isDuplicatedNicknameId(nicknameId);
+//	    result.put("isDuplicatedNickname", isDuplicatedNickname);
+
+	@RequestMapping("/is-duplicated-id")
 	public Map<String, Object> isDuplicatedId(
-			@RequestParam("loginId") String loginId,
+			@RequestParam("loginId") String loginId) {
+
+		Map<String, Object> result = new HashMap<>();
+		result.put("isDuplicatedId", false);
+
+		// select
+		UserEntity userEntity = userBO.getUserEntityByLoginId(loginId);
+		result.put("code", 200);
+
+		if (userEntity != null) {
+			result.put("isDuplicatedId", true);
+		}
+
+		return result;
+	}
+
+
+	@RequestMapping("/duplicated-nicknameId")
+	public Map<String, Object> isDuplicatedNicknameId(
 			@RequestParam("nicknameId") String nicknameId) {
 
 		Map<String, Object> result = new HashMap<>();
-	    // Check for duplicated ID
-	    UserEntity userEntity = userBO.isDuplicatedLoginId(loginId);
-	    result.put("isDuplicatedId", result);
+		result.put("isDuplicatedNicknameId", false);
 
-	    // Check for duplicated nickname
-	    UserEntity isDuplicatedNickname = userBO.isDuplicatedNicknameId(nicknameId);
-	    result.put("isDuplicatedNickname", isDuplicatedNickname);
+		// select
+		UserEntity userEntity = userBO.getUserEntityByNicknameId(nicknameId);
+		result.put("code", 200);
 
-	    result.put("code", 200);
+		if (userEntity != null) {
+			result.put("isDuplicatedId", true);
+		}
 
-	    return result;
+		return result;
 	}
-
 	
 	/**
 	 * 회원가입
