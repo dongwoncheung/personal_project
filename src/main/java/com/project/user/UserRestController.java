@@ -23,27 +23,13 @@ public class UserRestController {
 	@Autowired
 	private UserBo userBO;
 
-//	@RequestMapping("/check-duplicates")
-//	public Map<String, Object> isDuplicatedId(
-//			@RequestParam("loginId") String loginId,
-//			@RequestParam("nicknameId") String nicknameId) {
-//
-//		Map<String, Object> result = new HashMap<>();
-//	    // Check for duplicated ID
-//	    UserEntity userEntity = userBO.isDuplicatedLoginId(loginId, nicknameId);
-//	    result.put("code", 200);
-//	    result.put("isDuplicatedId", false);
-//	    
-//	    if(userEntity != null) {
-//	    	result.put("isDuplicatedId", true);
-//	    }
-//	    return result;
-//	}
 
-//	    // Check for duplicated nickname
-//	    UserEntity isDuplicatedNickname = userBO.isDuplicatedNicknameId(nicknameId);
-//	    result.put("isDuplicatedNickname", isDuplicatedNickname);
 
+	/**
+	 * 로그인 아이디 중복확인
+	 * @param loginId
+	 * @return
+	 */
 	@RequestMapping("/is-duplicated-id")
 	public Map<String, Object> isDuplicatedId(
 			@RequestParam("loginId") String loginId) {
@@ -63,6 +49,11 @@ public class UserRestController {
 	}
 
 
+	/**
+	 * 닉네임아이디 중복확인
+	 * @param nicknameId
+	 * @return
+	 */
 	@RequestMapping("/duplicated-nicknameId")
 	public Map<String, Object> isDuplicatedNicknameId(
 			@RequestParam("nicknameId") String nicknameId) {
@@ -118,7 +109,32 @@ public class UserRestController {
 	    
 	    return result;
 		}
-	
+	@PostMapping("/sign-in")
+	public Map<String, Object>signIn(
+			@RequestParam("loginId") String loginId,
+			@RequestParam("password") String password,
+			HttpServletRequest request){
+		
+		//비밀번호를 hashing
+		String hashedPassword = EncryptUtils.md5(password);
+		//db조회(loginId, 해싱된 비밀번호)
+		UserEntity user = userBO.getUserEntityByLoginIdPassword(loginId, hashedPassword);
+		
+		Map<String, Object>result = new HashMap<>();
+		
+		if(user != null) {
+			HttpSession session =  request.getSession();
+			session.setAttribute("userId", user.getId());
+			session.setAttribute("userName", user.getName());
+			session.setAttribute("loginId", user.getLoginId());
+			result.put("code", 200);
+			result.put("result", "성공");
+		}else {
+			result.put("code", 500);
+			result.put("errorMessage", "잘못된 사용자입니다");
+		}
+		return result;
+	}
 
 }
 

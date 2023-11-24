@@ -21,7 +21,7 @@
 			
 			<span class="sign-up-nickname">닉네임</span>
 			<div class="d-flex ml-3 mt-3">
-				<input type="text" name="nicknameId" class="form-control col-7" placeholder="닉네임을 입력하세요">
+				<input type="text" id="nicknameId" class="form-control col-7" placeholder="닉네임을 입력하세요">
 				<button type="button" id="nicknameCheckBtn" class="btn btn-success ml-2">중복확인</button>
 			</div>
 			
@@ -138,6 +138,7 @@ $(document).ready(function () {
 			$('#idCheckOk').addClass('d-none');
 			
 			let loginId = $('#loginId').val().trim();
+			
 			if (loginId.length < 4) {
 				$('#idCheckLength').removeClass('d-none');
 				return;
