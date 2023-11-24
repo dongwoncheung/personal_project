@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 <div class="d-flex justify-content-center">
 	<div class="sign-up-box">
 		<h1 class="m-4 font-weight-bold">회원가입</h1>
@@ -69,24 +70,28 @@
 	</div>
 </div>
 <script>
-$(document).ready(function(){
-
+/* $(document).ready(function(){
 		//중복확인 버튼 클릭(아이디)
-		$("#loginIdCheckBtn").on('click', function(){
+		 $("#loginIdCheckBtn, #nicknameCheckBtn").on('click', function (){
 			//alert("성공");
 			
 			// 경고 문구 초기화
-		$('#idCheckLength').addClass('d-none');
-		$('#idCheckDuplicated').addClass('d-none');
-		$('#idCheckOk').addClass('d-none');
+$('#idCheckLength, #idCheckDuplicated, #idCheckOk, #nicknameCheckLength, #nicknameCheckDuplicated, #nicknameCheckOk').addClass('d-none');
 		
 		let loginId = $('#loginId').val().trim();
+		let nicknameId = $('#nicknameId').val();
+		
+		//validation check
 		if (loginId.length < 4) {
 			$('#idCheckLength').removeClass('d-none');
 			return;
 		}
+        if (nicknameId.length < 4) {
+            $("#nicknameCheckLength").removeClass('d-none');
+            return;
+        }
 		
-		// AJAX 통신 - 중복확인
+		// AJAX 통신 - 아이디중복확인 및 닉네임 중복 확인
 		$.ajax({
 			// request
 			url:"/user/is-duplicated-id"
@@ -98,63 +103,94 @@ $(document).ready(function(){
 					// 중복
 					$('#idCheckDuplicated').removeClass('d-none');
 				} else {
-					// 중복 x=> 사용 가능
+					// 중복 아님 => 사용 가능
 					$('#idCheckOk').removeClass('d-none');
 				}
+                if (data.isDuplicatedNickname) {
+                    // 닉네임 중복
+                    $('#nicknameCheckDuplicated').removeClass('d-none');
+                } else {
+                    // 닉네임 중복 아님 => 사용 가능
+                    $('#nicknameCheckOk').removeClass('d-none');
+                }
+				
 			}
 			, error: function(request, status, error) {
 				alert("중복확인에 실패했습니다.");
 			}
 		});
-	});
-		//중복확인 버튼 클릭(닉네임)
-		$("#nicknameCheckBtn").on('click', function(){
-			//alert("성공");
+	}); */
+	$(document).ready(function () {
+	    // 중복확인 버튼 클릭(아이디 및 닉네임)
+	    $("#loginIdCheckBtn, #nicknameCheckBtn").on('click', function () {
+	        // 경고 문구 초기화
+	        $('#idCheckLength, #idCheckDuplicated, #idCheckOk, #nicknameCheckLength, #nicknameCheckDuplicated, #nicknameCheckOk').addClass('d-none');
+
+	        let loginId = $('#loginId').val().trim();
+	        let nicknameId = $.trim($('#nicknameId').val());
+
+	        // Validate ID
+	        if (loginId.length < 4) {
+	            $('#idCheckLength').removeClass('d-none');
+	            return;
+	        }
+
+	        // Validate nickname
+	        if (nicknameId.length < 4) {
+	            $("#nicknameCheckLength").removeClass('d-none');
+	            return;
+	        }
+
+	        $.ajax({
+	            url: "/user/check-duplicates"
+	            ,data: {"loginId": loginId,"nicknameId": nicknameId}
+	        
+	        		//응답
+	            ,success: function(data) {
+	                if (data.isDuplicatedId) {
+	                    // 아이디 중복
+	                    $('#idCheckDuplicated').removeClass('d-none');
+	                } else {
+	                    // 아이디 중복 아님 => 사용 가능
+	                    $('#idCheckOk').removeClass('d-none');
+	                }
+
+	                if (data.isDuplicatedNickname) {
+	                    // 닉네임 중복
+	                    $('#nicknameCheckDuplicated').removeClass('d-none');
+	                } else {
+	                    // 닉네임 중복 아님 => 사용 가능
+	                    $('#nicknameCheckOk').removeClass('d-none');
+	                }
+
+	                if (!data.isDuplicatedId && !data.isDuplicatedNickname) {
+	                    // 아이디와 닉네임 중복이 없을 경우
+	                    $('#signUpForm').submit();
+	                }
+	            }
+	            ,error: function(request, status, error) {
+
+	                alert("중복확인에 실패했습니다.");
+	            }
+	        });
+	    });
 			
-			// 경고 문구 초기화
-		$('#nicknameCheckLength').addClass('d-none');
-		$('#nicknameCheckDuplicated').addClass('d-none');
-		$('#nicknameCheckOk').addClass('d-none');
 		
-		let nicknameId = $('#nicknameId').val();
-		if (nicknameId.length < 4) {
-			$('#nicknameCheckLength').removeClass('d-none');
-			return;
-		}
 		
-		// AJAX 통신 - 닉네임중복확인
-		$.ajax({
-			// request
-			url:"/user/is-duplicated-nicknameId"
-			, data: {"nicknameId":nicknameId}
-			
-			// response
-			, success: function(data) {
-				if (data.isDuplicatedId) {
-					// 중복
-					$('#nicknameCheckDuplicated').removeClass('d-none');
-				} else {
-					// 중복 아님 => 사용 가능
-					$('#nicknameCheckOk').removeClass('d-none');
-				}
-			}
-			, error: function(request, status, error) {
-				alert("중복확인에 실패했습니다.");
-			}
-		});
-	});
+		
 
 		//회원가입 api
-		$('#signUpBtn').on('submit', function(e){
-			e.preventDefault();
+		$('#signUpForm').on('submit', function(e) {
+		e.preventDefault(); 
 			//유효성 검사
-			let loginId = $('#loginId').val().trim();
-			let nicknameId = $('#nicknameId').val();
-			let password = $('#password').val().trim();
-			let name = $('#name').val().trim();
-			let phoneNumber = $('#phoneNumber').val().trim();
-			let emailAddress = $('#emailAddress').val().trim();
-			let address = $('#address').val().trim();
+			let loginId = $('input[name=loginId]').val().trim();
+			let nicknameId = $('input[name=nicknameId]').val();
+			let password = $("input[name=password]").val().trim();
+			let confirmPassword = $('input[name=confirmPassword]').val();
+			let name = $('input[name=name]').val().trim();
+			let phoneNumber = $('input[name=phoneNumber]').val().trim();
+			let emailAddress = $('input[name=emailAddress]').val().trim();
+			let address = $('input[name=address]').val().trim();
 			
 			if(!loginId){
 				alert("아이디를 입력하세요");
@@ -194,32 +230,31 @@ $(document).ready(function(){
 				alert("아이디 중복확인을 다시한번 해주세요");
 				return false;
 			}
-			//닉네임 중복확인
-			if($('#nicknameCheckBtn').hasClass('d-none')){
+ 			//닉네임 중복확인
+			if($('#nicknameCheckOk').hasClass('d-none')){
 					alert("닉네임을 다시입력해주세요")
 					return false;
 				}
 			
-			
+			//아이디
 			let url = $(this).attr('action');
 			console.log(url);
 			let params = $(this).serialize(); // 폼태그에 있는 name 속성-값들로 파라미터 구성
 			console.log(params);
 			
-			// request
-			$.post(url, params)
+
+			
+			$.post(url, params)   // request
 			.done(function(data) {
 				// response
 				if (data.code == 200) {
-					alert("가입을 환영합니다!!! 로그인을 해주세요.");
+					alert("가입을 환영합니다! 로그인을 해주세요.");
 					location.href = "/user/sign-in"; // 로그인 화면으로 이동
 				} else {
 					// 로직 실패
 					alert(data.errorMessage);
 				}
-		
-		
-				});
 			});
 		});
+	});
 </script>

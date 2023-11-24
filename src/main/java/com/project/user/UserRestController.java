@@ -3,40 +3,46 @@ package com.project.user;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.project.common.EncryptUtils;
 import com.project.user.bo.UserBo;
 import com.project.user.entity.UserEntity;
 
 
-@Controller
+@RestController
 @RequestMapping("/user")
 public class UserRestController {
 	@Autowired
 	private UserBo userBO;
-	
-	@RequestMapping("/is-duplicated-id")
+
+	@RequestMapping("/check-duplicates")
 	public Map<String, Object> isDuplicatedId(
-			@RequestParam("loginId") String loginId) {
+			@RequestParam("loginId") String loginId,
+			@RequestParam("nicknameId") String nicknameId) {
 
 		Map<String, Object> result = new HashMap<>();
-		result.put("isDuplicatedId", false);
+	    // Check for duplicated ID
+	    UserEntity userEntity = userBO.isDuplicatedLoginId(loginId);
+	    result.put("isDuplicatedId", result);
 
-		// select
-		UserEntity userEntity = userBO.getUserEntityByLoginId(loginId);
-		result.put("code", 200);
+	    // Check for duplicated nickname
+	    UserEntity isDuplicatedNickname = userBO.isDuplicatedNicknameId(nicknameId);
+	    result.put("isDuplicatedNickname", isDuplicatedNickname);
 
-		if (userEntity != null) {
-			result.put("isDuplicatedId", true);
-		}
+	    result.put("code", 200);
 
-		return result;
+	    return result;
 	}
+
+	
 	/**
 	 * 회원가입
 	 * @param loginId
@@ -75,6 +81,6 @@ public class UserRestController {
 	    return result;
 		}
 	
-	
+
 }
 
