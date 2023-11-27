@@ -19,13 +19,18 @@
 				</div>
 				<input type="submit" class="btn btn-block btn-warning" value="로그인">
 				<a class="btn btn-block btn-dark" href="/user/sign-up">회원가입</a>
-			
+				
+				<!-- <a href="/user/searchId" class="btn btn-warning btn-user btn-block">아이디 찾기</a>
+				<a href="/user/searchPwd" class="btn btn-warning btn-user btn-block">비밀번호찾기 찾기</a> -->
+				
 		</form>
 	   </div>
 	</div>
 </div>
 <script>
 $(document).ready(function(){
+	
+	// 로그인 하는 페이지
 	$('#loginForm').submit(function(e){
 		e.preventDefault();
 		let loginId = $('input[name=loginId]').val().trim();

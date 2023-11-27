@@ -19,4 +19,5 @@ public class UserController {
 		model.addAttribute("mainSection", "user/signIn");
 		return"template/layout";
 	}
+
 }
