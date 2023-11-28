@@ -24,6 +24,7 @@
 		   box-sizing: border-box;
 		   margin-right:10px;			} 
 .content-text {font-size:12px; color:#888;}
+
 }
 </style>
 	
@@ -35,7 +36,7 @@
 				<article class="post-box">
 					<img
 						src="https://www.radiokorea.com/bulletin/data/file/c_realestate/1273884075_Lu2GQwxX_IMG_1097.jpg"
-						alt="잇츠원 유태양">
+						alt="test1">
 					<div class="font-weight-bold">test1</div>
 					<div class="content-text">하숙</div>
 					<div class="content-text">부에나팍</div>
@@ -43,23 +44,15 @@
 				<article class="post-box">
 					<img
 						src="https://www.radiokorea.com/bulletin/data/file/c_realestate/401827735_1T3UdO8y_7E596E45-0B32-4D2E-AF4E-DDC4A592CEA8.jpg"
-						alt="아이즈원 권은비">
+						alt="test2">
 					<div class="font-weight-bold">test2</div>
 					<div class="content-text">하숙</div>
 					<div class="content-text">풀러턴</div>
 				</article>
 				<article class="post-box">
 					<img
-						src="https://www.radiokorea.com/bulletin/data/file/c_realestate/1745442635_2H8JIxsG_1699830935349.jpg"
-						alt="스트레이 키즈 리노">
-					<div class="font-weight-bold">test3</div>
-					<div class="media-info-text">N-net Ent</div>
-					<div class="content-text">풀러턴</div>
-				</article>
-				<article class="post-box">
-					<img
 						src="https://www.radiokorea.com/bulletin/data/file/c_realestate/3283460896_TH8tWZl1_3.jpg"
-						alt="아이즈원 장원영">
+						alt="test4">
 					<div class="font-weight-bold">test4</div>
 					<div class="content-text">하숙</div>
 					<div class="content-text">애너하임</div>
@@ -67,7 +60,7 @@
 				<article class="post-box mr-3">
 					<img
 						src="https://www.radiokorea.com/bulletin/data/file/c_realestate/2893492055_l1xaIwos_IMG_0085.JPG"
-						alt="NCT DREAM 제노">
+						alt="test5">
 					<div class="font-weight-bold">test5</div>
 					<div class="content-text">하숙</div>
 					<div class="content-text">코리아타운</div>
@@ -75,7 +68,7 @@
 				<article class="post-box">
 					<img
 						src="https://www.radiokorea.com/bulletin/data/file/c_realestate/2935199457_x5wBDoAF_IMG_20231001_141057.jpg"
-						alt="아이즈원 미야와키 사쿠라">
+						alt="test6">
 					<div class="font-weight-bold">test6</div>
 					<div class="content-text">얼바인</div>
 				</article>
@@ -108,5 +101,17 @@
 					alt="아이콘"> <a href="#" class="nav-link font-weight-bold mr-5">스튜디오</a>
 			</div>
 		</ul>
+		<!--  매물 추가하기 -->
+		<div class="ml-5">
+			<button type="button" class="btn btn-warning" id="postBtn">매물 추가하기</button>
+		</div>
 	</div>
 </div>
+<script>
+$(document).ready(function(){
+	$("#postBtn").on("click", function(){
+		//alert("성공");
+		location.href="/room/room-mine";
+	});
+});
+</script>
