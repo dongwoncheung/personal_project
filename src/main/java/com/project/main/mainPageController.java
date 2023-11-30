@@ -12,7 +12,7 @@ public class mainPageController {
 
 	@GetMapping("/main/main-page")
 	public String mainPage(Model model, HttpSession session) {
-		model.addAttribute("mainSection", "main/main-Page");
+		model.addAttribute("mainSection", "main/mainPage");
 		return "template/layout";
 	}
 }

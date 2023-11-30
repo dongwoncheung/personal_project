@@ -20,6 +20,9 @@
 		<section class="contents">
 				<jsp:include page="../${mainSection}.jsp" />
 		</section>
+		<footer class="bg-warning">
+			<jsp:include page="../include/footer.jsp" />
+		</footer>
 
 	</div>
 </body>
