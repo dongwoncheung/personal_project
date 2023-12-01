@@ -115,7 +115,7 @@
 				, success:function(data) {
 					if (data.code == 200) {
 						alert("글이 삭제 되었습니다.");
-						location.href = "/post/post-list-view";
+						location.href = "/room/main-page";
 					} else {
 						alert(data.errorMessage);
 					}

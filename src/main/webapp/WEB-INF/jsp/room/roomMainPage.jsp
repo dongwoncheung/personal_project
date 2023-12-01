@@ -31,18 +31,31 @@
 	
 	<section class="contents d-flex">
 		<!-- 오른쪽 메뉴 -->
-<div class=" content 1 col-10">
+		<div class="content1 col-10">
+			<c:forEach items="${mainPage}" var="room">
+				<div
+					class="postContent-box d-flex flex-wrap justify-content-between">
+					<article class="post-box">
+						<img src="${room.imageUrl}" alt="${room.title}">
+						<div class="font-weight-bold">${room.title}</div>
+						<div class="content-text">${room.type}</div>
+						<div class="content-text">${room.location}</div>
+					</article>
+				</div>
+			</c:forEach>
+		</div>
+		<%-- <div class=" content 1 col-10">
     <c:forEach items="${mainPage}" var="room">
         <div class="postContent-box d-flex flex-wrap justify-content-between">
             <article class="post-box">
-                <img src="${room.imageUrl}" alt="${room.title}">
-                <div class="font-weight-bold">${room.title}</div>
-                <div class="content-text">${room.type}</div>
-                <div class="content-text">${room.location}</div>
+                <img src="${mainPage.imageUrl}" alt="${mainPage.title}">
+                <div class="font-weight-bold">${mainPage.title}</div>
+                <div class="content-text">${mainPage.type}</div>
+                <div class="content-text">${mainPage.location}</div>
             </article>
         </div>
     </c:forEach>
-</div>
+</div> --%>
 		
 	</section>
 

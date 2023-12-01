@@ -1,5 +1,7 @@
 package com.project.room.bo;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,7 +18,13 @@ public class RoomBO {
 	
 	@Autowired
 	private FileManagerService fileManager;
-	
+	// 게시글 뿌리기
+	public List<Room> getRoomListByUserId(int userId){
+		
+		List<Room> roomList = roomMapper.selectRoomListByUserId(userId);
+		
+		return roomList;
+	}
 	//게시글 업로드
 	//in:controller에 있는 파라미터들
 	//out:x

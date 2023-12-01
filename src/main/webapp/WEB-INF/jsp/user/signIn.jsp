@@ -53,7 +53,7 @@ $(document).ready(function(){
 		$.post(url,data)
 		.done(function(data){
 			if(data.result == "성공"){
-				location.href="/main/main-page";
+				location.href="/room/room-main-page"
 			}else{
 				alert("로그인에 실패했습니다");
 			}

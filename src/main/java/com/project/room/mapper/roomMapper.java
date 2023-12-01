@@ -1,13 +1,17 @@
 package com.project.room.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.project.room.domain.Room;
 
 @Repository
 public interface RoomMapper {
+	
+	public List<Room> selectRoomListByUserId(int userId);
+	
 	//int userId, String userLoginId, String title, String content, String price, String homeAddress, String location, MultipartFile file
 	public void insertRoom(
 			@Param("userId") int userId,

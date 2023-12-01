@@ -1,5 +1,7 @@
 package com.project.room;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,19 @@ public class RoomController {
 	@Autowired
 	private RoomBO roomBO;
 
+	
+	@GetMapping("/main-page")
+		public String mainPage(Model model, HttpSession session) {
+			Integer userId = (Integer)session.getAttribute("userId");
+			
+			List<Room> roomList = roomBO.getRoomListByUserId(userId);
+			model.addAttribute("roomList", roomList);
+			model.addAttribute("viewName", "post/postList");
+			return "template/layout";
+			
+			
+		}
+	
 	/**글쓰기 화면
 	 * 
 	 * @param model

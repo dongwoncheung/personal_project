@@ -30,13 +30,13 @@ public class PermissionInterceptor implements HandlerInterceptor {
 		
 		// 비로그인 && /post => 로그인 페이지로 이동, 컨트롤러 수행 방지
 		if (userId == null && uri.startsWith("/post")) {
-			response.sendRedirect("/user/sign-in-view");
+			response.sendRedirect("/user/sign-in");
 			return false; // 컨트롤러 수행 안함(원래 요청에 대해서)
 		}
 		
 		// 로그인 && /user => 글 목록 페이지 이동, 컨트롤러 수행 방지
 		if (userId != null && uri.startsWith("/user")) {
-			response.sendRedirect("/post/post-list-view");
+			response.sendRedirect("/room/room-main-page");
 			return false; // 컨트롤러 수행 안함(원래 요청에 대해서)
 		}
 		

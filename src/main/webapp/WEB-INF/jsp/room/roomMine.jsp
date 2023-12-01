@@ -107,7 +107,7 @@
 				,success : function(data) {
 					if (data.result == "성공") {
 						alert("게시글이 업로드 되었습니다");
-						location.href = "/main/main-page";
+						location.href = "/room/main-page";
 					} else {
 						alert(data.errorMessage);
 					}
