@@ -14,9 +14,9 @@
 	<input type="text" id="price" class="form-control my-3" value="$"
 		placeholder="가격을 기입하세요">
 	<h4>매물 사진 업로드</h4>
-	<c:if test="${not empty post.imagePath}">
+	<c:if test="${not empty post.imageUrl}">
 		<div class="my-4">
-			<img src="${post.imagePath}" alt="업로드 된 이미지" width="300">
+			<img src="${post.imageUrl}" alt="업로드 된 이미지" width="300">
 		</div>
 	</c:if>
 	<div class="d-flex justify-content-between">
@@ -25,13 +25,14 @@
 				<button type="button" id="saveBtn" class="btn btn-primary">저장</button>
 		</div>
 		<div class="d-flex justify-content-between">
-			<button type="button" id="deleteBtn" class="btn btn-secondary"
-				data-post-id="${post.id}">삭제</button>
+<%-- 			<button type="button" id="deleteBtn" class="btn btn-secondary"
+				data-post-id="${post.id}">삭제</button> --%>
 
 			<div>
-				<a href="/post/post-list-view" class="btn btn-dark">목록</a>
+				<a href="/post/post-detail" class="btn btn-dark">목록</a>
 				<button type="button" id="saveBtn" class="btn btn-warning"
 					data-post-id="${post.id}">수정</button>
+					
 			</div>
 		</div>
 	</div>
@@ -56,7 +57,14 @@
 				alert("가격을 입력하세요");
 				return;
 			}
-			if (fileName) {
+				let formData = new FormData();
+				
+				formData.append("postId", postId);
+				formData.append("subject", subject); 
+				formData.append("content", content);
+				formData.append("file", $('#file')[0].files[0]);
+
+				if (fileName) {
 				//alert("확인");
 
 				let ext = fileName.split(".").pop().toLowerCase();
@@ -67,12 +75,7 @@
 					$('#file').val("");
 					return;
 				}
-				let formData = new FormData();
-				formData.append("postId", postId);
-				formData.append("subject", subject); 
-				formData.append("content", content);
 				formData.append("file", $('#file')[0].files[0]);
-				
 				
 			}
 			$.ajax({

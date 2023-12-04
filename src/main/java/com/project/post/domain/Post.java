@@ -1,4 +1,4 @@
-package com.project.room.domain;
+package com.project.post.domain;
 
 import java.util.Date;
 
@@ -7,7 +7,7 @@ import lombok.ToString;
 
 @ToString
 @Data
-public class Room {
+public class Post {
 	
 	private int id;
 	private int userId;

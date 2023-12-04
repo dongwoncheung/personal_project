@@ -39,7 +39,7 @@ $(document).ready(function(){
 			return;
 		}
 		
-		let password = $('#password').val();
+		let password = $('input[name=password]').val();
 		if(password == ''){
 			alert("비밀번호를 입력하세요");
 			return;
@@ -52,8 +52,9 @@ $(document).ready(function(){
 		
 		$.post(url,data)
 		.done(function(data){
+			
 			if(data.result == "성공"){
-				location.href="/room/room-main-page"
+				location.href="/room/main-page"
 			}else{
 				alert("로그인에 실패했습니다");
 			}

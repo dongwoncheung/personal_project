@@ -17,8 +17,7 @@ public class FileManagerService {
 	private Logger logger = LoggerFactory.getLogger(this.getClass()); // 클레스명 파라미터 안에 복사후.class
 	
 	// 실제 업로드가 된 이미지가 저장될 경로(서버)
-	public static final String FILE_UPLOAD_PATH = "C:\\JAVAclass\\5_springproject\\personalProject\\workspace\\imges/"; // / -> 하는거 꼭해야 이미지가 올라간다
-	
+	public static final String FILE_UPLOAD_PATH = "C:\\JAVAclass\\5_springproject\\personalProject\\workspace\\images/";
 	// input: userLoginId, file(이미지)   output: web imagePath
 	public String saveFile(String loginId, MultipartFile file) {
 		// 폴더 생성

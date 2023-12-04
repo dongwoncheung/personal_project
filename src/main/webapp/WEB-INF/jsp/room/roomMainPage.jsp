@@ -32,30 +32,20 @@
 	<section class="contents d-flex">
 		<!-- 오른쪽 메뉴 -->
 		<div class="content1 col-10">
-			<c:forEach items="${mainPage}" var="room">
+			<c:forEach items="${postList}" var="post">
 				<div
 					class="postContent-box d-flex flex-wrap justify-content-between">
 					<article class="post-box">
-						<img src="${room.imageUrl}" alt="${room.title}">
-						<div class="font-weight-bold">${room.title}</div>
-						<div class="content-text">${room.type}</div>
-						<div class="content-text">${room.location}</div>
+						<div>${post.id}</div>
+						<img src="${post.imageUrl}" alt="매물 사진">
+						<div class="font-weight-bold"><a href="/post/post-detail-view?postId=${post.id}">${post.title}</a></div>
+						<div class="content-text">${post.content}</div>
+						<div class="content-text">${post.location}</div>
 					</article>
 				</div>
 			</c:forEach>
 		</div>
-		<%-- <div class=" content 1 col-10">
-    <c:forEach items="${mainPage}" var="room">
-        <div class="postContent-box d-flex flex-wrap justify-content-between">
-            <article class="post-box">
-                <img src="${mainPage.imageUrl}" alt="${mainPage.title}">
-                <div class="font-weight-bold">${mainPage.title}</div>
-                <div class="content-text">${mainPage.type}</div>
-                <div class="content-text">${mainPage.location}</div>
-            </article>
-        </div>
-    </c:forEach>
-</div> --%>
+
 		
 	</section>
 
@@ -86,6 +76,9 @@
 		<div class="ml-5">
 			<button type="button" class="btn btn-warning" id="postBtn">매물 추가하기</button>
 		</div>
+				<div class="ml-5">
+			<button type="button" class="btn btn-warning" id="resaveBtn">매물 수정하기</button>
+		</div>
 	</div>
 </div>
 <script>
@@ -94,5 +87,10 @@ $(document).ready(function(){
 		//alert("성공");
 		location.href="/room/room-mine";
 	});
+	//매물 수정 
+	$("#resaveBtn").on('click', function(){
+		location.href="/room/room-detail";
+	})
+	
 });
 </script>
